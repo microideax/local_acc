@@ -1,7 +1,7 @@
 #ifndef _CL_TSC_H_
 #define _CL_TSC_H_
 
-#define CPU_FREQUENCY (2670)
+#define CPU_FREQUENCY (3499)
 
 inline uint64_t ticks() {
     uint32_t lo, hi;
