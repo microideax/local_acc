@@ -1,7 +1,10 @@
 <span style="display: inline-block">
 
 # Table of Contents
-This repo contains the bitstream of the accelerators and corresponding API functions and demos.
+
+1. Bitstream of accelerators
+2. API functions to call the accelerators
+3. Several demos
 
 # Environmental Settings
 1. UltraScale+ VU118 board in PCIe mode (xdma driver is required)
