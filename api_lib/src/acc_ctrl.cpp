@@ -104,21 +104,27 @@ void quick_start(uint32_t 	input_num,
 				 int 	   feature_out_length
 				 )
 {
+    // write the params with xdma
 	fpga_fd= open(device_h2c,O_RDWR);
 	assert(fpga_fd >= 0);
 	off = lseek(fpga_fd,PARA_MEM,SEEK_SET);
 	rc = write(fpga_fd,para_list,16*4);
 	assert(rc == 16*4);
 
+    // write the weight data into acc memory
 	off = lseek(fpga_fd,WEIGHT_MEM,SEEK_SET);
 	rc = write(fpga_fd, weight, weight_length);
 	assert(rc == weight_length);
 
+    // write the input feature into acc memory
 	off = lseek(fpga_fd,DATA_IN_MEM,SEEK_SET);
 	rc = write(fpga_fd, feature_in, feature_in_length);
 	assert(rc == feature_in_length);
 
+    // close channel
 	close(fpga_fd); 
+
+    // start the layer processing
 	start_process(input_num,output_num,kernel_size,feature_in_size);
 	read_data(feature_out,feature_out_length);
 }
