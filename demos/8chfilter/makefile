@@ -1,9 +1,9 @@
 CC = g++
 TARGET = filter
 LIBS = `pkg-config opencv --libs`
-INC = -I../../ACC_API/include
+INC = -I../../api_lib/include
 INC += -I.`pkg-config opencv --cflags`
-SRCS = filter.cpp ../../ACC_API/src/layer.cpp  ../../ACC_API/src/acc_ctrl.cpp
+SRCS = filter.cpp ../../api_lib/src/layer.cpp  ../../api_lib/src/acc_ctrl.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 
@@ -14,4 +14,4 @@ $(TARGET): $(OBJS)
 	$(CC) -c $< -o $@ $(INC)
 
 clean:
-	rm -f *.o ../../ACC_API/src/*.o $(TARGET)
+	rm -f *.o ../../api_lib/src/*.o $(TARGET)

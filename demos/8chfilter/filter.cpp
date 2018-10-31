@@ -16,7 +16,11 @@ const uint32_t 	kernel_size = 3;
 short int   feature_out[feature_out_size * feature_out_size][32]={0};
 short int   feature_in[feature_in_size * feature_in_size][32] = {0};
 short int 	weight[kernel_size * kernel_size * output_num][32] = {0};
+
+
 void load_weight();
+
+
 int main()
 {
 	int i,j;
@@ -37,6 +41,9 @@ int main()
 	Mat outmergeImage;
 	int outmergeImageRows = dispSize * 4 + 10 * 3;
 	int outmergeImageCols = dispSize * 8 + 10 * 7;
+
+    cout << "Warning: please make sure your camera is connected and opencv could access the camera!!!" << endl;
+
 	outmergeImage.create(outmergeImageRows,outmergeImageCols,outputFeature[0].type());
 	VideoCapture capture(0);
 	load_weight();
