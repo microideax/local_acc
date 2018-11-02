@@ -4,8 +4,8 @@ find_package(Caffe)
 include_directories(${Caffe_INCLUDE_DIRS})
 add_definitions(${Caffe_DEFINITIONS})    # ex. -DCPU_ONLY
 
-include_directories(/home/yaochen/work/local_acc/api_lib)
-link_directories(/home/yaochen/work/local_acc/api_lib)
+include_directories(../../api_lib)
+link_directories(../../api_lib)
 
 set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} -g -ftest-coverage -fprofile-arcs")
 
