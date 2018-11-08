@@ -85,9 +85,9 @@ int main()
 						act,
 						weight,//[72][32],
 						weight_length,
-						feature_in,//[330*330][32],
+						feature_in,//[320*320][32],
 						feature_in_length,
-						feature_out,//[330*330][32],
+						feature_out,//[320*320][32],
 						feature_out_length);
 
 		for(i = 0 ; i < 320;i++)
