@@ -11,7 +11,12 @@ void conv_layer_construct(uint32_t 	input_num,
 						 uint32_t 	padding,
 						 uint32_t 	act,	
 						 short int  feature_out[][32],
-						 int        feature_out_length
+						 int        feature_out_length,
+						 uint32_t   weight_offset,
+						 uint32_t   bias_offset,
+						 uint32_t   data_in_offset,
+						 uint32_t   data_out_offset,
+						 uint32_t   data_out_mem
 						 );
 void pooling_layer_construct(uint32_t feature_in_size,
 							uint32_t  input_num,
@@ -21,6 +26,9 @@ void pooling_layer_construct(uint32_t feature_in_size,
 							uint32_t padding,
 							uint32_t act,
 							short int  feature_out[][32],
-						 	int        feature_out_length
+						 	int        feature_out_length,
+						 	uint32_t   data_in_offset,
+						 	uint32_t   data_out_offset,
+						 	uint32_t   data_out_mem
 							);
 #endif

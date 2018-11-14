@@ -1,5 +1,6 @@
-#include "layer.h"
-#include "acc_ctrl.h"
+#include "../../api_lib/inc/layer.h"
+#include "../../api_lib/inc/acc_ctrl.h"
+#include "acc_config.h"
 #include <iostream>
 #include <stdint.h>
 #include <stdlib.h>
@@ -47,6 +48,7 @@ int main()
 	outmergeImage.create(outmergeImageRows,outmergeImageCols,outputFeature[0].type());
 	VideoCapture capture(0);
 	load_weight();
+	write_weight(weight,weight_length,WEIGHT_MEM);
 	if(capture.isOpened())
 	{
 		cout << "success" << endl;
@@ -61,7 +63,7 @@ int main()
 		for(i = 0 ; i < output_num ;i++)
 			outputFeature[i].create(inputFeature[0].size(),inputFeature[0].type());		
 	}
-
+		
 	while(capture.isOpened())
 	{
 		capture >> frame;
@@ -75,21 +77,25 @@ int main()
 			for(j = 0 ; j < input_num;j++)
 				feature_in[i][j] = (short int)((inputFeature[j].at<uchar>(i/320,i%320)) << 6);
 
-		layer_construct(input_num,
-						output_num,
-						kernel_size,
-						feature_in_size,
-						feature_out_size,
-						stride,
-						padding,
-						act,
-						weight,//[72][32],
-						weight_length,
-						feature_in,//[320*320][32],
-						feature_in_length,
-						feature_out,//[320*320][32],
-						feature_out_length);
+        write_data(feature_in,feature_in_length,DATA_IN_MEM);
 
+  		conv_layer_construct(input_num,                      //input_num
+                            output_num,                       //output_num
+                            kernel_size,                   //kernel_size
+                            feature_in_size,                    //feature_in_size
+                            feature_out_size,                      //feature_out_size
+                            stride,                        //stride
+                            padding,                                  //padding
+                            act,                                  //act
+                            feature_out,                        //feature_out
+                            feature_out_length,          //feature_out_length
+                            WEIGHT_OFFSET,
+                            BIAS_OFFSET,
+                            DATA_IN_OFFSET,
+                            DATA_OUT_OFFSET,
+                            DATA_OUT_MEM
+                            );
+  		cout <<"TEST"<< endl;
 		for(i = 0 ; i < 320;i++)
 			for(int j = 0 ; j < 320 ; j++)
 				for(int k = 0 ; k < output_num;k++)

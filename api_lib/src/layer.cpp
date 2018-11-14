@@ -3,7 +3,6 @@
 #include <iostream>
 using namespace std;
 
-
 void conv_layer_construct(uint32_t 	input_num,
 						 uint32_t 	output_num,
 						 uint32_t 	kernel_size,
@@ -13,7 +12,12 @@ void conv_layer_construct(uint32_t 	input_num,
 						 uint32_t 	padding,
 						 uint32_t 	act,	
 						 short int  feature_out[][32],
-						 int        feature_out_length
+						 int        feature_out_length,
+						 uint32_t   weight_offset,
+						 uint32_t   bias_offset,
+						 uint32_t   data_in_offset,
+						 uint32_t   data_out_offset,
+						 uint32_t   data_out_mem
 						 )
 {
 	uint32_t para_list[16] = {0};
@@ -27,19 +31,17 @@ void conv_layer_construct(uint32_t 	input_num,
 	para_list[7] = stride;
 	para_list[8] = padding;
 	para_list[9] = act;
-	para_list[10] = WEIGHT_OFFSET;
-	para_list[11] = BIAS_OFFSET;
-	para_list[12] = DATA_IN_OFFSET;
-	para_list[13] = DATA_OUT_OFFSET;
+	para_list[10] = weight_offset;
+	para_list[11] = bias_offset;
+	para_list[12] = data_in_offset;
+	para_list[13] = data_out_offset;
 	para_list[14] = 0;
 	para_list[15] = 0;
-	quick_start_conv(input_num,
-				output_num,
-			    kernel_size,
-			    feature_out_size,
+	quick_start_conv(
 		        para_list,
 				feature_out,
-				feature_out_length
+				feature_out_length,
+				data_out_mem
 			   );
 }
 
@@ -51,7 +53,10 @@ void pooling_layer_construct(uint32_t feature_in_size,
 							uint32_t padding,
 							uint32_t act,
 							short int  feature_out[][32],
-						 	int        feature_out_length
+						 	int        feature_out_length,
+						 	uint32_t   data_in_offset,
+						 	uint32_t   data_out_offset,
+						 	uint32_t   data_out_mem
 							)
 {		
 	uint32_t para_list[16] = {0};
@@ -64,8 +69,8 @@ void pooling_layer_construct(uint32_t feature_in_size,
 	para_list[6] = stride;
 	para_list[7] = padding;
 	para_list[8] = act;
-	para_list[9] = DATA_OUT_OFFSET;
-	para_list[10] = POOLING_OUT_OFFSET;
+	para_list[9] = data_in_offset;
+	para_list[10] = data_out_offset;
 	para_list[11] = 0;
 	para_list[12] = 0;
 	para_list[13] = 0;
@@ -75,7 +80,8 @@ void pooling_layer_construct(uint32_t feature_in_size,
 	quick_start_pooling(
 						 para_list,
 						 feature_out,
-					 	 feature_out_length
+					 	 feature_out_length,
+					 	 data_out_mem
 						);
 }
 
